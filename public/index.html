@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Adoption Center</title>
+		<script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+		<script>
+		  // Initialize Firebase
+		  var config = {
+			apiKey: "AIzaSyAlu6lzdjvuMnTfsiCFQpr7It59JruL41c",
+			authDomain: "hack-together-2018.firebaseapp.com",
+			databaseURL: "https://hack-together-2018.firebaseio.com",
+			projectId: "hack-together-2018",
+			storageBucket: "hack-together-2018.appspot.com",
+			messagingSenderId: "932969893684"
+		  };
+		  firebase.initializeApp(config);
+		</script>
+		<script src="/socket.io/socket.io.js"></script>
+        <script>
+			/*
+    	    var url = window.location.href;
+        	var arr = url.split("/");
+        	var result = arr[0] + "//" + arr[2];
+    	    var socket = io.connect(result);
+			*/
+			var socket = io.connect('http://localhost:3000');
+			
+			
+			function signUp()
+			{
+				//socket.emit("signUpE", email.value);
+				//socket.emit("signUpP", password.value);
+				//socket.on("checkSignUp", function(email, password)
+				//{
+					//createUserWithEmailAndPassword(Uemail, Upassword);
+					// This function is uses firebase to create accounts
+					firebase.auth().createUserWithEmailAndPassword(email.value, password.value).catch(function(error) {
+							  // Handle Errors here.
+							  var errorCode = error.code;
+							  var errorMessage = error.message;
+							  // ...
+					});
+					console.log("YES");
+					window.location.href = "index2.html";
+				//});
+				
+			}
+			
+			function signIn()
+			{
+				firebase.auth().signInWithEmailAndPassword(email2.value, password2.value).catch(function(error) {
+				  // Handle Errors here.
+				  var errorCode = error.code;
+				  var errorMessage = error.message;
+				  // ...
+				});
+				window.location.href = "index2.html";
+			}
+			
+		
+        </script>
+    </head>
+    <body>
+		<center>
+		<br><br>
+		<input type=textbox id=email placeholder="Email">
+		<input type=textbox id=password placeholder="password">
+		<br><br>
+		<input type=button id="userClick" value="Sign Up" onClick="signUp()">
+		<br><br>
+		<input type=textbox id=email2 placeholder="Email">
+		<input type=textbox id=password2 placeholder="password">
+		<br><br>
+		<input type=button id="userClick2" value="Sign In" onClick="signIn()">
+		</center>
+		<!--<input type=textbox id="idLocations">
+		<input type=button onClick="test()" value="Search">-->
+    </body>
+</html>
